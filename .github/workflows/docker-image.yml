@@ -87,28 +87,28 @@ jobs:
       
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
-        with:
-          region: ap-south-1  # Make sure to pass the region explicitly here as well
-
-
-
-      # - name: Set up AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
       #   with:
-      #     aws-access-key-id: ${{ secrets.DOCKER_USERNAME }}
-      #     aws-secret-access-key: ${{ secrets.DOCKER_PASSWORD}}
-      #     aws-region: ap-south-1  # Specify the region where your ECR repository is located
+      #     region: ap-south-1  # Make sure to pass the region explicitly here as well
 
 
 
-      - name: Build Docker image
-        run: |
-          docker build -t my-app .
+      # # - name: Set up AWS credentials
+      # #   uses: aws-actions/configure-aws-credentials@v1
+      # #   with:
+      # #     aws-access-key-id: ${{ secrets.DOCKER_USERNAME }}
+      # #     aws-secret-access-key: ${{ secrets.DOCKER_PASSWORD}}
+      # #     aws-region: ap-south-1  # Specify the region where your ECR repository is located
+
+
+
+      # - name: Build Docker image
+      #   run: |
+      #     docker build -t my-app .
         
-      - name: Tag Docker image
-        run: |
-          docker tag my-app:latest 873548405156.dkr.ecr.ap-south-1.amazonaws.com/my-repository:latest
+      # - name: Tag Docker image
+      #   run: |
+      #     docker tag my-app:latest 873548405156.dkr.ecr.ap-south-1.amazonaws.com/my-repository:latest
 
-      - name: Push Docker image to ECR
-        run: |
-          docker push 873548405156.dkr.ecr.ap-south-1.amazonaws.com/my-repository:latest
+      # - name: Push Docker image to ECR
+      #   run: |
+      #     docker push 873548405156.dkr.ecr.ap-south-1.amazonaws.com/my-repository:latest
