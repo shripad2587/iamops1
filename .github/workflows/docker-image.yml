@@ -28,20 +28,20 @@ jobs:
         cd backend
         pip install -r requirements.txt
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Login Dockerhub
-      env:
-        DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME1}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD1}}
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    # steps:
+    # - uses: actions/checkout@v4
+    # - name: Login Dockerhub
+    #   env:
+    #     DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME1}}
+    #     DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD1}}
+    #   run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-    - name: Build the Docker image
-      run: |
-        cd frontend
-        docker build -t iamops1 .
-    - name: Push to Dashboard
-      run: docker push shripad2587/iamops1:tagname
+    # - name: Build the Docker image
+    #   run: |
+    #     cd frontend
+    #     docker build -t iamops1 .
+    # - name: Push to Dashboard
+    #   run: docker push shripad2587/iamops1:tagname
 
 
 # name: Build and Push Docker image to Amazon ECR
