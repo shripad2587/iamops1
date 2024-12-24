@@ -57,21 +57,24 @@ jobs:
       
       - name: Set up SSH key
         run: |
-          echo "${{ secrets.AWS_SSH_PRIVATE_KEY }}" | base64 -d > /tmp/aws_key.pem
-          chmod 600 /tmp/aws_key.pem
-          export SSH_PRIVATE_KEY=/tmp/aws_key.pem
+          echo "${{ secrets.AWS_SSH_PRIVATE_KEY }}" | base64 -d > /tmp/webkeypair.pem
+          chmod 600 /tmp/webkeypair.pem
+          export SSH_PRIVATE_KEY=/tmp/webkeypair.pem
         env:
           AWS_SSH_PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
 
     # Step 4: Pull and run the Docker image on your server (use SSH or other deployment method)
       - name: Deploy Docker container
         run: |
-          ssh -i /tmp/aws_key.pem ec2-user@13.203.105.17 <<EOF
+          ssh -i /tmp/webkeypair.pem ec2-user@13.203.105.17 <<EOF
             docker pull ${{ secrets.DOCKER_USERNAME1 }}/my-backend:$GITHUB_SHA
             docker stop my-backend-container || true
             docker rm my-backend-container || true
             docker run -d --name my-backend-container -p 5000:5000 ${{ secrets.DOCKER_USERNAME1 }}/my-backend:$GITHUB_SHA
           EOF
+
+
+        
 
 
       
