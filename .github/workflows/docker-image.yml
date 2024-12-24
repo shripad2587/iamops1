@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10"]
+        python-version: ["3.11"]
 
     steps:
     - uses: actions/checkout@v4
@@ -27,6 +27,36 @@ jobs:
         python -m pip install --upgrade pip
         cd backend
         pip install -r requirements.txt
+        python app.py
+
+
+    # Step 2: Set up Node.js (for installing npm dependencies and running build)
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # Specify the Node.js version you want to use
+
+      # Step 3: Navigate to the frontend directory
+    - name: Navigate to frontend directory and install dependencies
+      run: |
+        cd frontend
+        npm install  # Install dependencies
+
+      # Step 4: Build static content for production
+    - name: Build static content for production
+      run: |
+        cd frontend
+        npm run build  # Build the static files (make sure this command is defined in your package.json)
+
+      # Step 5: Install the `serve` package globally
+    - name: Install serve
+      run: npm install -g serve  # Install the `serve` package globally
+
+      # Step 6: Serve the static content
+    - name: Serve the static content
+      run: |
+        cd frontend
+        serve -s build  # Serve the static content from the 'build' folder (if that's where your production build output goes)
 
     # steps:
     # - uses: actions/checkout@v4
