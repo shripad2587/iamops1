@@ -23,7 +23,7 @@ jobs:
     - name: Build the Docker image
       run: docker build -t iamops1 .
     - name: Push to Dashboard
-      run: docker push shripad2587/iamops1:latest
+      run: docker push shripad2587/iamops1:tagname
 
 
 # name: Build and Push Docker image to Amazon ECR
