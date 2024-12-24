@@ -58,7 +58,7 @@ jobs:
       # Step 4: Pull and run the Docker image on your server (use SSH or other deployment method)
       - name: Deploy Docker container
         run: |
-          ssh user@your-server-ip <<EOF
+          ssh user@13.203.105.17 <<EOF
             docker pull ${{ secrets.DOCKER_USERNAME1 }}/my-backend:$GITHUB_SHA
             docker stop my-backend-container || true
             docker rm my-backend-container || true
