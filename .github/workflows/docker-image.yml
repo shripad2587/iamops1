@@ -21,7 +21,7 @@ jobs:
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
     - name: Build the Docker image
-      script: cd ./frontend
+      run: cd ./frontend
       run: docker build -t iamops1 .
     - name: Push to Dashboard
       run: docker push shripad2587/iamops1:tagname
