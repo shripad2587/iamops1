@@ -17,5 +17,5 @@ COPY . .
 EXPOSE 8080
 
 # Step 7: Define the command to run the app
-CMD ["node", "./src/*.js"]
+CMD ["node", "./frontend/src/*.js"]
 
