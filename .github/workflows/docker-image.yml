@@ -8,32 +8,13 @@ on:
 
 jobs:
 
-  #build:
-  run-python:
+  build:
 
     runs-on: ubuntu-latest
-    
-    steps:
-     # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'  # You can specify other versions as needed
-
-    # Step 3: Install dependencies (if using pip)
-      - name: Install dependencies
-        run: |
-          cd ../backend
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Assumes you have a requirements.txt file
-
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Login Dockerhub
+    - uses: actions/checkout@v4
+    - name: Login Dockerhub
       env:
         DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME1}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD1}}
