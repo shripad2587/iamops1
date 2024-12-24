@@ -21,9 +21,9 @@ jobs:
       run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
     - name: Build the Docker image
-      run: docker build -t iamops-pipeline .
+      run: docker build -t iamops1 .
     - name: Push to Dashboard
-      run: docker push shripad2587/iamops-pipeline:latest
+      run: docker push shripad2587/iamops1:latest
 
 
 # name: Build and Push Docker image to Amazon ECR
