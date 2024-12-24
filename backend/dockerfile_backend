@@ -1,0 +1,24 @@
+# Use a base image with Python installed
+FROM python:3.8-slim
+
+# Set environment variables to prevent Python from writing .pyc files to disk and buffering output
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Set the working directory to /app inside the container
+WORKDIR /app
+
+# Copy the requirements file into the container at /app
+COPY backend/requirements.txt /app/
+
+# Install the required Python packages
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the backend files into the container
+COPY backend/ /app/
+
+# Expose the port your backend will run on (e.g., port 5000 for Flask)
+EXPOSE 5000
+
+# Define the command to run the backend server (e.g., for Flask)
+CMD ["python", "app.py"]
