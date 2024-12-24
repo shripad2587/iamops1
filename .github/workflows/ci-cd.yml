@@ -63,16 +63,22 @@ jobs:
         env:
           AWS_SSH_PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
 
+        # Step 5: Add EC2 host to known hosts to prevent host key verification failure
+      - name: Add EC2 host to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.EC2_PUBLIC_IP }} >> ~/.ssh/known_hosts
+
     # Step 4: Pull and run the Docker image on your server (use SSH or other deployment method)
       - name: Deploy Docker container
         run: |
-          ssh -i webkeypair.pem ec2-user@13.203.105.17 <<EOF
+          ssh -i webkeypair.pem -o StrictHostKeyChecking=no ec2-user@{{ secrets.EC2_PUBLIC_IP }} << EOF
             docker pull ${{ secrets.DOCKER_USERNAME1 }}/my-backend:$GITHUB_SHA
             docker stop my-backend-container || true
             docker rm my-backend-container || true
             docker run -d --name my-backend-container -p 5000:5000 ${{ secrets.DOCKER_USERNAME1 }}/my-backend:$GITHUB_SHA
           EOF
-          
+
 
 
         
